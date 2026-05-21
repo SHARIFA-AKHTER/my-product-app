@@ -17,15 +17,20 @@ export async function GET(req: Request) {
 
     const userId = await getAuthUser();
 
-    // 1. Dashboard specific filter
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized. Please log in first." }, { status: 401 });
+    }
+
     if (myOnly === "true") {
-      if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
       const myProducts = await Product.find({ user: userId }).sort({ createdAt: -1 });
       return NextResponse.json(myProducts);
     }
 
-    // 2. Public product search & filters
-    const query: any = { name: { $regex: search, $options: "i" } };
+    const query: any = { 
+      user: userId, 
+      name: { $regex: search, $options: "i" } 
+    };
+    
     if (category) query.category = category;
 
     const sortOptions: any = {};
@@ -35,11 +40,11 @@ export async function GET(req: Request) {
 
     const products = await Product.find(query).sort(sortOptions);
     return NextResponse.json(products);
+
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
-
 export async function POST(req: Request) {
   try {
     await dbConnect();
