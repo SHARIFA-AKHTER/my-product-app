@@ -1,17 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unescaped-entities */
-
-// export default function Home() {
-//   return (
-//     <div className="flex flex-col items-center justify-center min-h-screen py-2">
-//       <h1 className="text-4xl font-bold mb-4">Welcome to the E-commerce Product Hub</h1>
-//       <p className="text-lg text-gray-600 mb-8">Manage and discover amazing products</p>
-      
-//     </div>
-//   );
-// }
-
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState, useEffect } from "react";
